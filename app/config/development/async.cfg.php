@@ -1,4 +1,4 @@
 <?php
 
-$_config['async']['server'] = array( 'host'=> "192.168.3.216",'port'=>9551);
+$_config['async']['server'] = array( 'host'=> "127.0.0.1",'port'=>9501);
 return $_config;

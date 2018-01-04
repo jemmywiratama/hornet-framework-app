@@ -3,10 +3,10 @@
 $_config = [
     'max_source_line' => 12,
     'trace_limit' => 15,
-    'email_notify' => ['121642038@qq.com'],
+    'email_notify' => ['weichaoduo@163.com'],
     'max_day_send'=>3,
     'enable_write_log'=>true,
-    'enable_send_email'=>false
+    'enable_send_email'=>true
 
 ];
 
@@ -22,11 +22,11 @@ $_config['mail_tpl']  = '<style type="text/css">
     <div id="debug_in" >
         <fieldset>
             <legend><b>error:</b></legend>
-            <pre>{{err_msg}}</pre>\ 
+            <pre>{{err_msg}}</pre>
         </fieldset> 
         <fieldset>
             <legend><b>Trace:</b></legend>
-            <pre>{{traces}}</pre>
+            <pre>{{req_data}}</pre>
         </fieldset>
         <fieldset>
             <legend><b>Source:</b></legend>
