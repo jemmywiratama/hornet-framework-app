@@ -1,7 +1,7 @@
 <?php
-namespace main\app\server\async;
+namespace main\async;
 
-$serv = new \swoole_server("127.0.0.1", 9501);
+$serv = new swoole_server("127.0.0.1", 9501);
 $serv->set(array(
     'worker_num' => 8,   //工作进程数量
     'daemonize' => true, //是否作为守护进程
@@ -21,9 +21,7 @@ $serv->on('receive', function ($serv, $fd, $from_id, $data) {
     }
 
     list ( $class, $method ) = explode('.',$json_obj->cmd);
-
-    $full_class = sprintf("main\\app\\server\\async\\%s", $class);
-    $class_obj = new $full_class();
+    $class_obj =  new $class();
     if (! method_exists($class_obj, $method)) {
         throw new \Exception($class.'->'.$method . ' no found;', 500);
     }
