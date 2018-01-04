@@ -25,7 +25,7 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
      * @param bool $return_json
      * @return mixed|null
      */
-    protected function _get( \Curl\Curl &$curl, string $url,array $data=[],bool $return_json = true )
+    protected function _get(&$curl, $url,array $data=[], $return_json = true )
     {
         //$data['unit_token'] = 'xxxxxxxxxxxxxxxxxxxxxxxxxx';
         $curl->get( $url ,$data );
@@ -44,7 +44,7 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
      * @param bool $parse_json
      * @return mixed|null
      */
-    protected function _post( \Curl\Curl &$curl, string $url, array $data=[], bool $parse_json = true )
+    protected function _post( &$curl, $url, array $data=[], $parse_json = true )
     {
         $curl->post( $url ,$data );
         $resp = $curl->rawResponse;
@@ -62,7 +62,7 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
      * @param bool $parse_json
      * @return null
      */
-    protected function _put( \Curl\Curl $curl, string $url, array $data=[], bool $parse_json = true  )
+    protected function _put($curl, $url, array $data=[], $parse_json = true  )
     {
         $curl->put( $url ,$data );
         $resp = $curl->rawResponse;
@@ -76,7 +76,7 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
      * 通过curl资源判断是否存在错误
      * @param \Curl\Curl $
      */
-    protected function checkCurlNoError( \Curl\Curl $curl   )
+    protected function checkCurlNoError($curl   )
     {
         if ( $curl->error) {
             $this->fail(  '\Curl\Curl Error: ' . $curl->errorCode . ': ' . $curl->errorMessage.PHP_EOL );
@@ -87,7 +87,7 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
      *  解析返回数据并转换为json数组
      * @param $res
      */
-    protected function parseJsonResp( string $resp , string $url='' )
+    protected function parseJsonResp( $resp , $url='' )
     {
         $json = json_decode( $resp ,true );
         if( !$json ){
@@ -115,7 +115,7 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
      * @param string $primary_key
      * @return bool|int
      */
-    protected function createModelFile( string $model_name, string $prefix='test_', string $table = 'user',string $fields='*',string $primary_key='id' )
+    protected function createModelFile( $model_name, $prefix='test_', $table = 'user',$fields='*',$primary_key='id' )
     {
         $model_source = "<?php \n".'
 namespace main\\'.APP_NAME.'\\model;
@@ -135,7 +135,7 @@ class '.$model_name.' extends DbModel{
      * @param $function_source
      * @return bool|int
      */
-    protected function createCtrlFunctionFile( string $name, $function_source )
+    protected function createCtrlFunctionFile( $name, $function_source )
     {
         $all_source = "<?php \n".'
                     namespace main\\'.APP_NAME.'\\ctrl;
