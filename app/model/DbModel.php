@@ -429,9 +429,9 @@ class DbModel   extends BaseModel
      */
     public function insertRows( $rows )
     {
-
         $table = $this->getTable();
         $sql = makeMultiInsertSql( $table, $rows );
+        //f('$sql.log', $sql);
         //执行SQL语句，返回影响行数，如果有错误，则会被捕获并跳转到出错页面
         $rowsAffected = $this->exec($sql);
         return $rowsAffected;

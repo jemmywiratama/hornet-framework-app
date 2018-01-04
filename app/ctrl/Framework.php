@@ -91,7 +91,7 @@ class Framework extends BaseCtrl
     }
     public function show_exception()
     {
-        require_once PRE_APP_PATH.'/vendor/hornet/framework/src/framework/HornetLogicException.php';
+        require_once PRE_APP_PATH.'/../hornet-framework/src/framework/HornetLogicException.php';
         throw  new \framework\HornetLogicException(500,'throw exception');
         echo 'ok';
     }

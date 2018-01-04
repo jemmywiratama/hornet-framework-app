@@ -36,8 +36,8 @@ class testEnv extends BaseTestCase
      */
     public function testPhpVersion()
     {
-        if (version_compare(PHP_VERSION, '7.0.0') ==-1) {
-            $this->fail('expect php version >=7.0.0,but get '.PHP_VERSION);
+        if (version_compare(PHP_VERSION, '5.6.15') ==-1) {
+            $this->fail('expect php version >=5.6.0,but get '.PHP_VERSION);
         }
     }
 

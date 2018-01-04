@@ -324,7 +324,7 @@ class testFramework extends BaseTestCase
         ob_start();
         // 实例化开发框架对象
         file_put_contents( './aaa.log', var_export($_SERVER,true) );
-        require_once PRE_APP_PATH.'/vendor/hornet/framework/src/framework/bootstrap.php';
+        require_once PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php';
         $engine = new  framework\HornetEngine( $config );
         $engine->route();
         $output = ob_get_contents();

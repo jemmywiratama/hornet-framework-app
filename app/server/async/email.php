@@ -6,7 +6,7 @@
  * Time: 下午 7:07
  */
 
-namespace main\app\async;
+namespace main\app\server\async;
 
 
 class email

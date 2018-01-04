@@ -2,10 +2,6 @@
 
 namespace main\app\api;
 
-use main\app\classes\B2bcrypt;
-use main\app\classes\Sign;
-use main\lib\phpcurl\Curl;
-
 /**
  * api 基类， 提供对外接口的接入操作
  *

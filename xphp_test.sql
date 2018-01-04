@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-01-03 18:11:30
+Date: 2018-01-03 18:24:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -560,7 +560,7 @@ CREATE TABLE `xphp_user` (
   `name` varchar(60) NOT NULL DEFAULT '',
   `phone` varchar(20) NOT NULL,
   `password` varchar(32) NOT NULL DEFAULT '',
-  `email` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL DEFAULT '',
   `status` tinyint(2) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态:1正常,2禁用',
   `reg_time` int(11) unsigned NOT NULL DEFAULT '0',
   `last_login_time` int(11) unsigned NOT NULL DEFAULT '0',
@@ -569,7 +569,7 @@ CREATE TABLE `xphp_user` (
   UNIQUE KEY `phone_unique` (`phone`) USING BTREE,
   KEY `phone` (`phone`,`password`),
   KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of xphp_user
