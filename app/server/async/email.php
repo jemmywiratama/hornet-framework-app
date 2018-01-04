@@ -8,6 +8,7 @@
 
 namespace main\app\server\async;
 
+require_once '../../../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 
 class email
 {
@@ -16,7 +17,7 @@ class email
      * @param $json_obj
      * @return array
      */
-    function send_mail( $json_obj ){
+    function send_by_smtp( $json_obj ){
 
         if( !isset($json_obj->to)
             || !isset($json_obj->subject)
@@ -27,10 +28,11 @@ class email
         }
         $to = $json_obj->to;
         $subject = $json_obj->subject;
-        $body = $json_obj->content;
-        $config = (array)$json_obj->config;
-
-        require_once PRE_ROOT_PATH . '/vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+        $body = $json_obj->content; 
+        $config = (object)$json_obj->config; 
+	
+		//var_dump($to,$subject,$body);
+        
         $ret = false;
         $msg = '';
 
@@ -40,7 +42,7 @@ class email
             $mail->CharSet='UTF-8';
             $mail->SMTPAuth = true;
             $mail->Port = $config->port;
-            $mail->SMTPDebug = 0;
+            $mail->SMTPDebug = 2;
             $mail->Host =  $config->host;
             $mail->Username = $config->username;
             $mail->Password = $config->password;
@@ -70,5 +72,50 @@ class email
         }
 
         return [ $ret , $msg ];
+    }
+	
+	public function send_by_api( $json_obj )
+    {
+        if( !isset($json_obj->to)
+            || !isset($json_obj->subject)
+            || !isset($json_obj->content) 
+        ){
+            return [ false , '参数错误' ];
+        }
+        $to = $json_obj->to;
+		if( is_array($to) && !empty($to) ){
+			$to = implode(';',$json_obj->to);
+		}
+        $subject = $json_obj->subject;
+        $body = $json_obj->content; 
+        $config = (object)$json_obj->config; 
+
+        $url = 'http://api.sendcloud.net/apiv2/mail/send';
+        $API_USER = 'weichaoduo_test_Olsbj4';
+        $API_KEY = 'tlQhPfPOPgPOexiU';
+
+        //您需要登录SendCloud创建API_USER，使用API_USER和API_KEY才可以进行邮件的发送。
+        $param = array(
+            'apiUser' => $API_USER,
+            'apiKey' => $API_KEY,
+            'from' => 'service@sendcloud.im',
+            'fromName' => 'SendCloud',
+            'to' => $to,
+            'subject' => $subject,
+            'html' => $body,
+            'respEmailId' => 'true');
+
+        $data = http_build_query($param);
+		var_dump($param);
+        $options = array(
+            'http' => array(
+                'method'  => 'POST',
+                'header'  => 'Content-Type: application/x-www-form-urlencoded',
+                'content' => $data
+            ));
+
+        $context  = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+		echo $result."\n\n";
     }
 }
