@@ -91,7 +91,6 @@ class Framework extends BaseCtrl
     }
     public function show_exception()
     {
-        require_once PRE_APP_PATH.'/../hornet-framework/src/framework/HornetLogicException.php';
         throw  new \framework\HornetLogicException(500,'throw exception');
         echo 'ok';
     }
@@ -223,6 +222,7 @@ class Framework extends BaseCtrl
             unset($_SESSION['test_session1']);
         }
         $_SESSION['test_session1'] = time();
+        $_SESSION['session_id'] = session_id();
         $this->ajax_success('ok', $_SESSION);
     }
 

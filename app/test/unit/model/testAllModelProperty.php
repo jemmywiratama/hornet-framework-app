@@ -90,6 +90,7 @@ class testAllExtendDbModelProperty extends PHPUnit_Framework_TestCase
                 }
 
                 $sql = "show full fields from  {$table} ";
+
                 $database_fields = $model->db->getRows($sql, [], true);
                 if (empty($database_fields)) {
                     continue;

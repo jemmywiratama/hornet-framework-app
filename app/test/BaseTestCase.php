@@ -31,8 +31,9 @@ class BaseTestCase extends PHPUnit_Framework_TestCase
         $curl->get( $url ,$data );
         $resp = $curl->rawResponse;
         $this->checkCurlNoError( $curl );
-        if( $return_json )
+        if( $return_json ){
             $resp = $this->parseJsonResp( $resp ,$url);
+        }
         return $resp;
     }
 

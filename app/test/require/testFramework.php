@@ -163,7 +163,7 @@ class testFramework extends BaseTestCase
     public function testSession()
     {
         $curl = new \Curl\Curl();
-        $curl->setCookieFile( './testSession.txt');
+        $curl->setCookieFile( 'testSession.cookie');
         parent::_get( $curl, ROOT_URL . "framework/session_step1", [], true );
         $json = parent::_get( $curl, ROOT_URL . "framework/session_step2", [], true );
 
@@ -324,7 +324,16 @@ class testFramework extends BaseTestCase
         ob_start();
         // 实例化开发框架对象
         //file_put_contents( './aaa.log', var_export($_SERVER,true) );
-        require_once PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php';
+        if( file_exists(PRE_APP_PATH.'vendor/hornet/framework/src/framework/bootstrap.php') ){
+            require_once PRE_APP_PATH.'vendor/hornet/framework/src/framework/bootstrap.php';
+        }else{
+            if( !file_exists(PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php')){
+                unlink( $exception_page_file );
+                unset( $config, $engine );
+                return;
+            }
+            require_once PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php';
+        }
         $engine = new  framework\HornetEngine( $config );
         $engine->route();
         $output = ob_get_contents();

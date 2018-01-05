@@ -5,10 +5,10 @@
     'default' => 
     array (
       'driver' => 'mysql',
-      'host' => '192.168.3.254',
+      'host' => '127.0.0.1',
       'port' => '3306',
       'user' => 'root',
-      'password' => '123456',
+      'password' => '',
       'db_name' => 'xphp_test',
       'charset' => 'utf8',
       'timeout' => 10,
@@ -17,10 +17,10 @@
     'log_db' => 
     array (
       'driver' => 'mysql',
-      'host' => '192.168.3.254',
+      'host' => '127.0.0.1',
       'port' => '3306',
       'user' => 'root',
-      'password' => '123456',
+      'password' => '',
       'db_name' => 'xphp_test',
       'charset' => 'utf8',
       'timeout' => 10,

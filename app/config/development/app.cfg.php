@@ -5,9 +5,9 @@
 error_reporting(E_ALL);
 
 // URL手动设置
-define('ROOT_URL', 'http://app.com/');
+define('ROOT_URL', 'http://www.app.com/');
 define('PUBLIC_URL', ROOT_URL.'dev/');
-define('UPLOAD_URL', 'http://app.com');
+define('UPLOAD_URL', 'http://www.app.com');
 
 // 是否将数据存储在缓存中
 define('ENABLE_CACHE', true);
