@@ -9,6 +9,6 @@
   },
   "require-dev": {
     "phpunit/phpunit": "5.7.*",
-    "hornet/framework":"v0.4.1"
+    "hornet/framework":"v0.4.3"
   }
 }
