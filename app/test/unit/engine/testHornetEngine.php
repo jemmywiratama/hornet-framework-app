@@ -37,7 +37,14 @@ class testHornetEngine extends PHPUnit_Framework_TestCase
         $config->exceptionPage = VIEW_PATH.'exception.php';
 
         // 实例化开发框架对象
-        require_once PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php';
+        if( file_exists(PRE_APP_PATH.'vendor/hornet/framework/src/framework/bootstrap.php') ){
+            require_once PRE_APP_PATH.'vendor/hornet/framework/src/framework/bootstrap.php';
+        }else{
+            if( !file_exists(PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php')){
+                return;
+            }
+            require_once PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php';
+        }
         $engine = new  framework\HornetEngine( $config );
 
         foreach(  $config as $k=>$v ) {

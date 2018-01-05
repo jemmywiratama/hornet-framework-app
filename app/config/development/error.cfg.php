@@ -30,7 +30,9 @@ $_config['mail_tpl']  = '<style type="text/css">
         </fieldset>
         <fieldset>
             <legend><b>Source:</b></legend>
-            <pre>{{source}}</pre>
+            <pre><TEXTAREA  rows=20 cols=120 readonly="readonly">
+{{source}}
+</TEXTAREA></pre>
         </fieldset>
         <fieldset>
             <legend><b>SQL:</b></legend>
