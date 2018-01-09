@@ -75,7 +75,7 @@ class Log extends BaseUserCtrl
         $ret['page_str'] = $logLogic->getPageHtml( $conditions,$page );
         $ret['logs'] = $logLogic->query( $conditions,  $page, $remark, $logModel->primary_key,'desc' );
 
-        $this->ajax_success('ok', $ret);
+        $this->ajaxSuccess('ok', $ret);
 
     }
 

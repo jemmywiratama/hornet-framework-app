@@ -5,9 +5,9 @@
 error_reporting(E_ALL);
 
 // URL手动设置
-define('ROOT_URL', 'http://www.app.com/');
+define('ROOT_URL', 'http://www.hornet-app.com/');
 define('PUBLIC_URL', ROOT_URL.'dev/');
-define('UPLOAD_URL', 'http://www.app.com');
+define('UPLOAD_URL', 'http://www.hornet-app.com');
 
 // 是否将数据存储在缓存中
 define('ENABLE_CACHE', true);
@@ -32,3 +32,6 @@ define('ENBALE_DEBUG', false);
 
 // api和ajax请求时是否开启Trace
 define('ENABLE_TRACE', false);
+
+// 是否开启反射和检验返回值格式功能
+define('ENABLE_REFLECT_METHOD', true);

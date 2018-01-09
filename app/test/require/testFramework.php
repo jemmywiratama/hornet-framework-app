@@ -240,10 +240,66 @@ class testFramework extends BaseTestCase
     }
 
     /**
-     * 测试异常
+     * 测试Ajax 返回格式
+     */
+    public function testValidAjaxJson()
+    {
+        if (!ENABLE_REFLECT_METHOD) {
+            return;
+        }
+        // 故意返回错误的格式
+        $curl = new \Curl\Curl();
+        $curl->get( ROOT_URL . '/framework/not_expect_json');
+        if ( $curl->httpStatusCode != 200 ) {
+            $this->fail( 'expect response http code 200,but get ' . $curl->httpStatusCode );
+        }
+        $json = json_decode( $curl->rawResponse );
+        if ( !$this->isJson($json)) {
+            $this->fail( 'expect response is json,but get: ' . $curl->rawResponse );
+        }
+        if ( $json->ret!=='600' ) {
+            $this->fail( 'expect response ret is 600,but get: ' . $json->ret );
+        }
+        // 返回正确的格式
+        $curl->get(ROOT_URL . '/framework/expect_json');
+        $json = json_decode( $curl->rawResponse );
+        if ( !$this->isJson($json)) {
+            $this->fail( 'expect response is json,but get: ' . $curl->rawResponse );
+        }
+        if ( $json->ret!=='200' ) {
+            $this->fail( 'expect response ret is 200,but get: ' .$json->ret );
+        }
+
+        // 故意返回错误的复杂格式
+        $curl->get( ROOT_URL . '/framework/not_expect_mix_json');
+        $json = json_decode( $curl->rawResponse );
+        if ( !$this->isJson($json)) {
+            $this->fail( 'expect response is json,but get: ' . $curl->rawResponse );
+        }
+        if (  $json->ret!=='600' ) {
+            $this->fail( 'expect response ret is 600,but get: ' . $json->ret );
+        }
+
+        // 返回正确的复杂格式
+        $curl->get( ROOT_URL . '/framework/expect_mix_json'  );
+        $json = json_decode( $curl->rawResponse );
+        if ( !$this->isJson($json)) {
+            $this->fail( 'expect response is json,but get: ' . $curl->rawResponse );
+        }
+        if ( $json->ret!=='200' ) {
+            $this->fail( 'expect response ret is 200,but get: ' . $json->ret);
+        }
+
+    }
+
+    /**
+     * 测试返回值格式
      */
     public function testValidApiJson()
     {
+        if (!ENABLE_REFLECT_METHOD) {
+            return;
+        }
         // 故意返回错误的格式
         $curl = new \Curl\Curl();
         $curl->get( ROOT_URL . '/api/framework/not_expect_json');

@@ -28,12 +28,10 @@ class BaseUserCtrl extends BaseCtrl
         parent::__construct();
         $this->auth = UserAuth::getInstance();
         $token = isset($_GET['token']) ? $_GET['token'] : '';
-
     }
 
-
     // 是否是ajax请求
-    function is_ajax()
+    public function is_ajax()
     {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
     }
