@@ -5,9 +5,9 @@
 error_reporting(E_ALL);
 
 // URL手动设置
-define('ROOT_URL', 'http://www.hornet-app.com/');
+define('ROOT_URL', 'http://www.app.develop/');
 define('PUBLIC_URL', ROOT_URL.'dev/');
-define('UPLOAD_URL', 'http://www.hornet-app.com');
+define('UPLOAD_URL', ROOT_URL);
 
 // 是否将数据存储在缓存中
 define('ENABLE_CACHE', true);
@@ -19,16 +19,16 @@ define('CACHE_HANDLER', 'Redis');
 define('CACHE_EXPIRE', 360000);
 
 // Xhprof 设置
-define('ENABLE_XHPROF', false);
+define('ENABLE_XHPROF', true);
 
-//触发xhprof的几率
-define('XHPROF_RATE', 1);
+//触发xhprof的千分之几率
+define('XHPROF_RATE', 999);
  
 // 是否记录访问日志
 define('WRITE_REQUEST_LOG', false);
 
 // 是否在网页底部显示debug信息
-define('ENBALE_DEBUG', false);
+define('ENBALE_DEBUG', true);
 
 // api和ajax请求时是否开启Trace
 define('ENABLE_TRACE', false);
