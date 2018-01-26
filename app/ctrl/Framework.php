@@ -118,13 +118,13 @@ class Framework extends BaseCtrl
         $time = time();
         $user = [];
         try {
-            $sql = "INSERT INTO `test_user` ( `name`, `phone`, `password`, `email`, `status`, `reg_time`, `last_login_time`) 
+            $sql = "INSERT INTO `xphp_user` ( `name`, `phone`, `password`, `email`, `status`, `reg_time`, `last_login_time`) 
                 VALUES ( '帅哥', '13002510000', '{$pwd}', 'fun@163.com', 1, 0, {$time}) ;";
             $ret = $dbModel->db->exec($sql);
         } catch (\Exception $e) {
             $insert_id = $dbModel->db->getLastInsId();
             if (!empty($insert_id)) {
-                $sql = "Delete From `test_user` Where id = $insert_id  ";
+                $sql = "Delete From `xphp_user` Where id = $insert_id  ";
                 echo $sql;
                 $dbModel->db->exec($sql);
             }
@@ -136,10 +136,10 @@ class Framework extends BaseCtrl
             $insert_id = $dbModel->db->getLastInsId();
             $phone = $_POST['phone'];
             $pwd = $_POST['pwd'];
-            $sql = "Select * From `test_user` Where phone='$phone' AND password='$pwd'";
+            $sql = "Select * From `xphp_user` Where phone='$phone' AND password='$pwd'";
             $user = $dbModel->db->getRow($sql);
             if (!empty($insert_id)) {
-                $sql = "Delete From `test_user` Where phone = '13002510000'  ";
+                $sql = "Delete From `xphp_user` Where phone = '13002510000'  ";
                 //echo $sql;
                 $dbModel->db->exec($sql);
             }
@@ -157,19 +157,19 @@ class Framework extends BaseCtrl
         $pwd = md5('pwd123456');
         $time = time();
 
-        $sql = "INSERT INTO `test_user` ( `name`, `phone`, `password`, `email`, `status`, `reg_time`, `last_login_time`) 
+        $sql = "INSERT INTO `xphp_user` ( `name`, `phone`, `password`, `email`, `status`, `reg_time`, `last_login_time`) 
             VALUES ( '帅哥', '13002510000', '{$pwd}', 'fun@163.com', 1, 0, {$time}) ;";
         $dbModel->db->exec($sql);
 
         $insert_id = $dbModel->db->getLastInsId();
         $phone = $_POST['phone'];
-        $sql = "Select * From `test_user` Where phone='$phone'  limit 1";
+        $sql = "Select * From `xphp_user` Where phone='$phone'  limit 1";
         //echo $sql;
         $dbModel->db->getRow($sql);
-        $sql = "Select * From `test_user`    limit 1";
+        $sql = "Select * From `xphp_user`    limit 1";
         $user = $dbModel->db->getRow($sql);
         if (!empty($insert_id)) {
-            $sql = "Delete From `test_user` Where id = '$insert_id'  ";
+            $sql = "Delete From `xphp_user` Where id = '$insert_id'  ";
             $dbModel->db->exec($sql);
         }
 
@@ -200,7 +200,7 @@ class Framework extends BaseCtrl
     public function do_sql_inject_delete()
     {
         $url = ROOT_URL . "/framework/sql_inject_delete";
-        $post_data['phone'] = "13002510000'  ; DELETE FROM test_user;Select * From `test_user` WHERE 1 or phone = '";
+        $post_data['phone'] = "13002510000'  ; DELETE FROM xphp_user;Select * From `xphp_user` WHERE 1 or phone = '";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POST, 1);

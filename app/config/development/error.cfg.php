@@ -6,7 +6,7 @@ $_config = [
     'email_notify' => ['weichaoduo@163.com'],
     'max_day_send'=>3,
     'enable_write_log'=>true,
-    'enable_send_email'=>true
+    'enable_send_email'=>false
 
 ];
 
