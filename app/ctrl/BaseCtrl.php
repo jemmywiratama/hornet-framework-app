@@ -114,8 +114,9 @@ class BaseCtrl
      * 通过ajax 协议返回格式
      * @param array $data
      * @param string $msg
+     * @param int $code
      */
-    public function ajaxSuccess($msg = '', $data = [])
+    public function ajaxSuccess($msg='', $data = [], $code=200)
     {
         global $framework;
         $ajax_protocol_class = sprintf("main\\%s\\protocol\\%s", $framework->currentApp, $framework->ajaxProtocolClass);
@@ -219,6 +220,7 @@ class BaseCtrl
         $ajaxProtocol = new ajax();
         $ajaxProtocol->builder($code, $data, $msg);
         echo $ajaxProtocol->getResponse();
+        exit;
     }
 
     /**

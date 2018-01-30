@@ -376,7 +376,6 @@ class MyPdo
         }
         $sql  = "Insert  into  {$table} Set  ";
         $sql .= $this->parsePrepareSql( $row  );
-
         return $this->execInsertPrepareSql( $sql, $row  );
 
     }

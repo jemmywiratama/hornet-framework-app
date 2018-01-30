@@ -3,7 +3,7 @@
 $_config = [
     'max_source_line' => 12,
     'trace_limit' => 15,
-    'email_notify' => ['weichaoduo@163.com'],
+    'email_notify' => ['xxxx@163.com'],
     'max_day_send'=>3,
     'enable_write_log'=>true,
     'enable_send_email'=>false

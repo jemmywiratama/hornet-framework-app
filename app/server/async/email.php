@@ -91,8 +91,8 @@ class email
         $config = (object)$json_obj->config; 
 
         $url = 'http://api.sendcloud.net/apiv2/mail/send';
-        $API_USER = 'weichaoduo_test_Olsbj4';
-        $API_KEY = 'tlQhPfPOPgPOexiU';
+        $API_USER = 'ismond_test_qooe4W';
+        $API_KEY = 'IPYxlcOz8Bkfv8XF';
 
         //您需要登录SendCloud创建API_USER，使用API_USER和API_KEY才可以进行邮件的发送。
         $param = array(
