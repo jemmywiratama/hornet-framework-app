@@ -131,6 +131,7 @@ class testFramework extends BaseTestCase
 
         if ( empty($json) ) {
             $this->fail( 'testSqlInject fail ,response: ' . $curl->rawResponse );
+			return;
         }
 
         if ( $json->ret!='0'  ) {
@@ -398,8 +399,89 @@ class testFramework extends BaseTestCase
         }
         unlink( $exception_page_file );
         unset( $config, $engine );
-        ob_end_flush();
-        //
+        ob_end_flush(); 
+    }
+	
+	public function testXhprof()
+    {
+		global $framework;
+        // 判断是否载入xhprof扩展
+        if (!extension_loaded('xhprof')) {
+            return;
+        }
+
+        // 创建开发框架配置
+        $config = new \stdClass();
+        $config->currentApp = APP_NAME;
+        $config->appPath = APP_PATH;
+        $config->appStatus = APP_STATUS;
+        $config->enableTrace = ENABLE_TRACE;
+        $config->xhprofRoot = APP_PATH.'public/xhprof/';
+        $config->enableXhprof = true;
+        $config->xhprofRate = 1000;
+		$config->enableWriteReqLog = WRITE_REQUEST_LOG;
+        $config->enableSecurityMap = SECURITY_MAP_ENABLE;
+        $config->exceptionPage = VIEW_PATH.'exception.php';
+
+        // 判断是否开启
+        if (!$config->enableXhprof) {
+            $this->fail( "Xhprof option should be enable");
+            return;
+        }
+
+        if(!is_writable(STORAGE_PATH.'xhprof') ){
+            $this->fail( "Xhprof path not writable");
+            return;
+        }
+
+        if( !file_exists(APP_PATH.'public/xhprof/') ){
+            $this->fail( "Path public/xhprof not exist");
+            return;
+        }
+		// 删除之前的日志文件
+		$child_dir = date('Y-m-d').'/'.date('H');
+		@mkdir(STORAGE_PATH.'xhprof/'.$child_dir, 0777, true); 
+		@chown(STORAGE_PATH.'xhprof/'.$child_dir, 'www' );
+		
+        $_SERVER['REQUEST_URI'] = '/framework/get_php_ini';
+        $_SERVER['SCRIPT_NAME'] = '';
+        ob_start();
+        // 实例化开发框架对象
+        //file_put_contents( './aaa.log', var_export($_SERVER,true) );
+        if( file_exists(PRE_APP_PATH.'vendor/hornet/framework/src/framework/bootstrap.php') ){
+            require_once PRE_APP_PATH.'vendor/hornet/framework/src/framework/bootstrap.php';
+        }else{
+            if( !file_exists(PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php')){
+                $this->fail( "File framework/bootstrap.php not exist");
+                return;
+            }
+            require_once PRE_APP_PATH.'/../hornet-framework/src/framework/bootstrap.php';
+        }
+        $framework = new  framework\HornetEngine( $config );
+        $framework->route();
+        $output = ob_get_contents();
+		
+        $json = json_decode($output,true);
+        if( !$json ){
+            $this->fail( "Response json not object:".$output);
+            return;
+        } 
+        clearstatcache();
+        if( !file_exists(STORAGE_PATH.'xhprof/'.$child_dir) ){
+            $this->fail( "Xhprof child path {$child_dir} not exist");
+            return;
+        }
+		
+        $existXhprofLogFile = false;
+		$cmd = "find ".STORAGE_PATH.'xhprof/'.$child_dir."  -name '*framework_get_php_ini.xhprof'"; 
+		exec($cmd,$retval);
+		//file_put_contents( './exeStr.log', $cmd." \n".var_export($exeStr,true).var_export($retval,true) );
+        if( count($retval)<=0){
+            $this->fail( "Xhprof log file not exist");
+            return;
+        } 
+        unset( $config, $framework );
+        ob_end_clean ();
     }
 
     /**

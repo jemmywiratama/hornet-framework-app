@@ -138,7 +138,7 @@ class BaseCtrl
             $this->validReturnJson($reflectMethod, $ajaxProtocol, $return_obj, $result);
         }
 
-        header('Content-Type:application/json');
+        @header('Content-Type:application/json');
         echo $result;
     }
 

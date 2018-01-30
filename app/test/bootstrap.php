@@ -22,3 +22,5 @@ function testAutoload($class)
 }
 
 spl_autoload_register(  'testAutoload');
+
+$GLOBALS['framework'] = null;
