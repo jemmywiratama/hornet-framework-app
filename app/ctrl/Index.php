@@ -17,7 +17,7 @@ class Index extends BaseCtrl
      */
     public function index()
     {
-        1 / 0;
+        //1 / 0;
         echo 'index';
     }
 

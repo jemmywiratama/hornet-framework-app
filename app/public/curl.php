@@ -11,7 +11,7 @@ function microtime_float()
     return ((float)$usec + (float)$sec);
 }
 
-$max_request = 2;
+$max_request = 1000;
 $requests = array();
 for ($i = 0; $i < $max_request; $i++) {
     $requests[] = "http://www.hornet-app.com/index/runtime_error?t=" . microtime_float() . '&file=file1&line=1001';
