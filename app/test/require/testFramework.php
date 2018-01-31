@@ -378,18 +378,7 @@ class testFramework extends BaseTestCase
         $_SERVER['SCRIPT_NAME'] = '';
         ob_start();
         // 实例化开发框架对象
-        //file_put_contents( './aaa.log', var_export($_SERVER,true) );
-        if (file_exists(PRE_APP_PATH . 'vendor/hornet/framework/src/framework/bootstrap.php')) {
-            require_once PRE_APP_PATH . 'vendor/hornet/framework/src/framework/bootstrap.php';
-        } else {
-            if (!file_exists(PRE_APP_PATH . '/../hornet-framework/src/framework/bootstrap.php')) {
-                unlink($exception_page_file);
-                unset($config, $engine);
-                return;
-            }
-            require_once PRE_APP_PATH . '/../hornet-framework/src/framework/bootstrap.php';
-        }
-        $engine = new  framework\HornetEngine($config);
+        $engine = parent::getFrameworkInstance( $config );
         $engine->route();
         $output = ob_get_contents();
         if ($output != '111') {
@@ -446,16 +435,7 @@ class testFramework extends BaseTestCase
         ob_start();
         // 实例化开发框架对象
         //file_put_contents( './aaa.log', var_export($_SERVER,true) );
-        if (file_exists(PRE_APP_PATH . 'vendor/hornet/framework/src/framework/bootstrap.php')) {
-            require_once PRE_APP_PATH . 'vendor/hornet/framework/src/framework/bootstrap.php';
-        } else {
-            if (!file_exists(PRE_APP_PATH . '/../hornet-framework/src/framework/bootstrap.php')) {
-                $this->fail("File framework/bootstrap.php not exist");
-                return;
-            }
-            require_once PRE_APP_PATH . '/../hornet-framework/src/framework/bootstrap.php';
-        }
-        $framework = new  framework\HornetEngine($config);
+        $framework = parent::getFrameworkInstance( $config );
         $framework->route();
         $output = ob_get_contents();
 
@@ -469,18 +449,12 @@ class testFramework extends BaseTestCase
             $this->fail("Xhprof child path {$child_dir} not exist");
             return;
         }
-        if (isset($framework->xhprofRunId)) {
-            $existXhprofLogFile = STORAGE_PATH . 'xhprof/' . $child_dir . "/" . $framework->xhprofRunId . "framework_get_php_ini.xhprof";
-            if (!file_exists($existXhprofLogFile)) {
-                $this->fail($existXhprofLogFile . ' not exist');
-            }
-        } else {
-            $cmd = "find " . STORAGE_PATH . 'xhprof/' . $child_dir . "  -name '*framework_get_php_ini.xhprof'";
-            exec($cmd, $retval);
-            //file_put_contents( './exeStr.log', $cmd." \n".var_export($exeStr,true).var_export($retval,true) );
-            if (count($retval) <= 0) {
-                $this->fail("Xhprof log file not exist");
-            }
+
+        $cmd = "find " . STORAGE_PATH . 'xhprof/' . $child_dir . "  -name '*framework_get_php_ini.xhprof'";
+        exec($cmd, $retval);
+        //file_put_contents( './exeStr.log', $cmd." \n".var_export($exeStr,true).var_export($retval,true) );
+        if (count($retval) <= 0) {
+            $this->fail("Xhprof log file not exist");
         }
 
         unset($config, $framework);
