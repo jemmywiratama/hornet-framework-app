@@ -51,6 +51,7 @@ class Framework extends BaseCtrl
             STORAGE_PATH . 'cache',
             STORAGE_PATH . 'session',
             STORAGE_PATH . 'log',
+	    STORAGE_PATH . 'xhprof',
         ];
 
         $ret = [];

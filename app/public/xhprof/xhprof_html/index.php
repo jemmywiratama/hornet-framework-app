@@ -80,44 +80,10 @@ $vbbar = ' class="vbbar"';
 $vrbar = ' class="vrbar"';
 $vgbar = ' class="vgbar"';
 
-require_once '../../../globals.php';
-
-$path = STORAGE_PATH.'xhprof';
-ini_set( "xhprof.output_dir",$path ); 
-
-// 自动清理
-if (is_dir($path)) {
-    if ($dh = opendir($path)) {
-        while (($file = readdir($dh)) !== false) {
-			//var_dump(is_file($path .'/'.$file));
-			if(is_file($path .'/'.$file)){
-				$part_file = pathinfo($path .'/'.$file);
-				if($part_file['extension']=='xhprof'){
-					if(time()-filemtime($path .'/'.$file)>3600){
-						unlink($path .'/'.$file);
-					}
-				}
-			}
-            //echo "filename: $file : filetype: " . filetype($path . $file) . "\n<br>";
-        }
-        closedir($dh);
-    }
-}
-
-if( isset($_GET['file']) ) {
-	if(file_exists($_GET['file']) ){
-		$part = pathinfo($_GET['file']);
-		copy ($_GET['file'],STORAGE_PATH.'xhprof/'.$part['basename']);
-	}
-}
- 
+require_once 'path_common.php';
 
 $xhprof_runs_impl = new XHProfRuns_Default( $path ); 
- 
-$file_name = $xhprof_runs_impl->file_name($run, $source); 
-if( !file_exists($file_name) ){ 
-	die($file_name .' not exist');
-} 
+
 //var_dump($file_name);
 displayXHProfReport($xhprof_runs_impl, $params, $source, $run, $wts,
                     $symbol, $sort, $run1, $run2);

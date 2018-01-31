@@ -125,7 +125,7 @@ class BaseCtrl
         } else {
             $ajaxProtocol = new \framework\Protocol\Ajax();
         }
-        $ajaxProtocol->builder('200', $data, $msg);
+        $ajaxProtocol->builder($code, $data, $msg);
         $result = $ajaxProtocol->getResponse();
 
         if ($framework->enableReflectMethod) {
@@ -141,6 +141,7 @@ class BaseCtrl
 
         @header('Content-Type:application/json');
         echo $result;
+        exit;
     }
 
     /**
